@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For You, Jo ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --blush: #f4c2c2;
+  --rose: #e8a0a0;
+  --dusty-pink: #d4a0a0;
+  --cream: #fef6f0;
+  --lavender: #e8daf0;
+  --sage: #c8d8c0;
+  --coral: #f08080;
+  --soft-white: #fffaf5;
+  --text-dark: #4a3a3a;
+  --text-light: #7a6a6a;
+  --gold: #d4a574;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════
+   PARTICLES (floating hearts/petals)
+   ═══════════════════════════════════ */
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-10vh) rotate(360deg) scale(1); opacity: 0; }
+}
+
+/* ═══════════════════════════════════
+   SECTION BASE
+   ═══════════════════════════════════ */
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 3rem 1.5rem;
+}
+
+/* ═══════════════════════════════════
+   LANDING
+   ═══════════════════════════════════ */
+#landing {
+  background: linear-gradient(135deg, #fef6f0 0%, #fce4ec 40%, #f8e8f0 70%, #e8daf0 100%);
+  text-align: center;
+  z-index: 10;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+#landing.hidden {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+.landing-content {
+  position: relative;
+  z-index: 2;
+}
+
+.landing-pretitle {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dusty-pink);
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeInUp 1s 0.3s forwards;
+}
+
+.landing-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+  opacity: 0;
+  animation: fadeInUp 1s 0.6s forwards;
+}
+
+.landing-sub {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.4rem;
+  color: var(--rose);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeInUp 1s 0.9s forwards;
+}
+
+.enter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, var(--blush), var(--rose));
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(232,160,160,0.4);
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 1s 1.2s forwards;
+}
+.enter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(232,160,160,0.5);
+}
+.enter-btn:active { transform: scale(0.97); }
+
+.enter-heart {
+  display: inline-block;
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+  60% { transform: scale(1); }
+}
+
+/* ═══════════════════════════════════
+   CELEBRATION
+   ═══════════════════════════════════ */
+#celebration {
+  background: linear-gradient(180deg, #fce4ec 0%, var(--cream) 100%);
+  text-align: center;
+  min-height: 100vh;
+}
+#celebration .content { opacity: 0; transition: opacity 1s ease; }
+#celebration .content.show { opacity: 1; }
+
+.hbd-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.hbd-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8rem;
+  color: var(--coral);
+  margin-bottom: 1.5rem;
+}
+.hbd-tagalog {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: var(--text-light);
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+}
+.hbd-days {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--blush);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: var(--dusty-pink);
+  margin-bottom: 2rem;
+}
+
+.scroll-nudge {
+  font-size: 0.8rem;
+  color: var(--dusty-pink);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: bounce 2s ease-in-out infinite;
+  margin-top: 1rem;
+}
+.scroll-nudge span {
+  display: block;
+  font-size: 1.2rem;
+  margin-top: 0.3rem;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* confetti canvas */
+#confetti-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ═══════════════════════════════════
+   TIMELINE
+   ═══════════════════════════════════ */
+#timeline {
+  background: var(--soft-white);
+  padding: 5rem 1.5rem;
+  min-height: auto;
+}
+
+.timeline-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+.timeline-subtitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--rose);
+  margin-bottom: 3rem;
+}
+
+.timeline-line {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-left: 2rem;
+}
+.timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--blush), var(--lavender), var(--sage));
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.6s ease;
+}
+.tl-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 0.5rem;
+  width: 12px; height: 12px;
+  background: var(--blush);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 3px var(--blush);
+  transform: translateX(-5px);
+}
+
+.tl-date {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--dusty-pink);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.tl-content {
+  background: white;
+  padding: 1.2rem 1.4rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  border: 1px solid rgba(244,194,194,0.3);
+}
+.tl-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-dark);
+}
+.tl-text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+.tl-emoji {
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.tl-feel {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.95rem;
+  color: var(--rose);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.timeline-bridge {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.bridge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(135deg, var(--lavender), var(--blush));
+  border: none;
+  border-radius: 50px;
+  color: var(--text-dark);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(232,160,160,0.3);
+  transition: all 0.3s ease;
+}
+.bridge-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(232,160,160,0.4); }
+
+/* ═══════════════════════════════════
+   LETTERS
+   ═══════════════════════════════════ */
+#letters {
+  background: linear-gradient(180deg, var(--cream) 0%, #f8e8f0 50%, var(--cream) 100%);
+  padding: 5rem 1.5rem;
+  min-height: auto;
+}
+.letters-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.letters-subtitle {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.letters-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.envelope {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgba(244,194,194,0.3);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.envelope:nth-child(odd) { transform: rotate(-2deg); }
+.envelope:nth-child(even) { transform: rotate(1.5deg); }
+.envelope:hover {
+  transform: rotate(0deg) translateY(-4px) !important;
+  box-shadow: 0 8px 28px rgba(232,160,160,0.25);
+}
+
+.envelope-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.envelope-label {
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+.envelope-tag {
+  font-size: 0.65rem;
+  color: var(--dusty-pink);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+/* letter modal */
+.letter-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(74,58,58,0.5);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+.letter-modal.open { display: flex; }
+
+.letter-paper {
+  background: var(--soft-white);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  max-width: 400px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  animation: slideUp 0.4s ease;
+}
+.letter-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--dusty-pink);
+  width: 32px; height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.letter-close:hover { background: rgba(244,194,194,0.2); }
+.letter-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: var(--coral);
+  margin-bottom: 1rem;
+}
+.letter-body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  line-height: 1.8;
+}
+.letter-sign {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: var(--rose);
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ═══════════════════════════════════
+   REASONS
+   ═══════════════════════════════════ */
+#reasons {
+  background: var(--soft-white);
+  padding: 5rem 1.5rem;
+  min-height: auto;
+}
+.reasons-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.reasons-subtitle {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: var(--rose);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.reason-card {
+  max-width: 400px;
+  margin: 0 auto 1.2rem;
+  background: white;
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
+  border-left: 3px solid var(--blush);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.5s ease;
+}
+.reason-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reason-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--blush);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.reason-text {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════
+   ENDING
+   ═══════════════════════════════════ */
+#ending {
+  background: linear-gradient(180deg, var(--cream) 0%, #fce4ec 40%, #f8e8f0 100%);
+  text-align: center;
+  padding: 5rem 1.5rem;
+  min-height: 100vh;
+}
+.ending-para {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 2;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.ending-para.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ending-sign {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--coral);
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  transition: opacity 1s ease 0.5s;
+}
+.ending-sign.visible { opacity: 1; }
+.ending-tagalog {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: var(--dusty-pink);
+  letter-spacing: 3px;
+  opacity: 0;
+  transition: opacity 1s ease 0.8s;
+}
+.ending-tagalog.visible { opacity: 1; }
+
+.ending-hearts {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 1s ease 1s;
+}
+.ending-hearts.visible { opacity: 1; }
+
+/* ═══════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* mobile optimizations */
+@media (max-width: 480px) {
+  .landing-name { font-size: 2.8rem; }
+  .hbd-text { font-size: 2.4rem; }
+  .hbd-name { font-size: 2.2rem; }
+  .letters-grid { gap: 0.8rem; }
+  .envelope { padding: 1.2rem 0.8rem; }
+  .letter-paper { padding: 2rem 1.5rem; }
+}
+
+/* smooth scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--blush); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ░░░ PARTICLES ░░░ -->
+<div class="particles" id="particles"></div>
+
+<!-- ░░░ CONFETTI ░░░ -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ░░░ LANDING ░░░ -->
+<section id="landing">
+  <div class="landing-content">
+    <p class="landing-pretitle">a little something for</p>
+    <h1 class="landing-name">Rhian Joy</h1>
+    <p class="landing-sub">mahal ko ♡</p>
+    <button class="enter-btn" onclick="enterSite()">
+      Open My Heart <span class="enter-heart">♡</span>
+    </button>
+  </div>
+</section>
+
+<!-- ░░░ CELEBRATION ░░░ -->
+<section id="celebration">
+  <div class="content" id="celeb-content">
+    <p class="hbd-tagalog">Maligayang Kaarawan</p>
+    <h2 class="hbd-text">Happy Birthday</h2>
+    <p class="hbd-name">Joy, my love my baby my bebu. ♡</p>
+    <div class="hbd-days">141 days & counting with you</div>
+    <div class="scroll-nudge">
+      scroll down, there's more for you my bebu
+      <span>↓</span>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ TIMELINE ░░░ -->
+<section id="timeline">
+  <h2 class="timeline-title">Our Story</h2>
+  <p class="timeline-subtitle">every moment with you</p>
+
+  <div class="timeline-line">
+
+    <div class="tl-item">
+      <div class="tl-date">December 26, 2025</div>
+      <div class="tl-content">
+        <span class="tl-emoji">💬</span>
+        <h3 class="tl-heading">The Day We Met</h3>
+        <p class="tl-text">you were on HelloCHat app.. with a fake account, testing some shit guy's loyalty.. Somehow in between hundreds of DMs we met... and i cant thank the universe more for meeting me with you.</p>
+        <p class="tl-feel">fate had other plans</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">December 29, 2025</div>
+      <div class="tl-content">
+        <span class="tl-emoji">🤍</span>
+        <h3 class="tl-heading">We Became Us</h3>
+        <p class="tl-text">Three days. That's all it took for me to know. We made it official and my world got a little brighter.</p>
+        <p class="tl-feel">the best decision</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">January 1, 2026</div>
+      <div class="tl-content">
+        <span class="tl-emoji">💗</span>
+        <h3 class="tl-heading">The First "I Love You"</h3>
+        <p class="tl-text">New Year's Day. You said it first.Made my life so joyful. And I don't think any fireworks in the world could've matched what I felt reading those words from you.</p>
+        <p class="tl-feel">my heart was so full</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">A Night I'll Never Forget</div>
+      <div class="tl-content">
+        <span class="tl-emoji">🌙</span>
+        <h3 class="tl-heading">When You Let Me Watch You Sleep for the first time</h3>
+        <p class="tl-text">You trusted me enough to fall asleep on call. I was staring you adoring you admiring you.. those were days bebu i am missing now.. when i was developing feelings for you.. i want to feel that again, but kind of i do feel it now too... cuz everyday i am building feelings for you more and more.</p>
+        <p class="tl-feel">Thanks for trusting me love. I will never let you regret.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Every Night</div>
+      <div class="tl-content">
+        <span class="tl-emoji">📞</span>
+        <h3 class="tl-heading">Our calls</h3>
+        <p class="tl-text">Watching you, talking about everything and nothing, Its so calming to be on call with you.. we dont even talk but that stays my fav time of the day.</p>
+        <p class="tl-feel">I could stare at you forever</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Today</div>
+      <div class="tl-content">
+        <span class="tl-emoji">🎂</span>
+        <h3 class="tl-heading">Your Birthday, My Bebu's first birthday with me.</h3>
+        <p class="tl-text">Here we are.. and i am so sad i am not with you love.. neither we can do any fun together on your birthday... but baby, we will be toether soon.. I love you and i a sure about you more than anything else.</p>
+        <p class="tl-feel">this is just the beginning</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="timeline-bridge">
+    <button class="bridge-btn" onclick="scrollToSection('letters')">
+      I have got some letters for you bebu✉️
+    </button>
+  </div>
+</section>
+
+<!-- ░░░ LETTERS ░░░ -->
+<section id="letters">
+  <h2 class="letters-title">Letters For You</h2>
+  <p class="letters-subtitle">tap one to open ♡</p>
+
+  <div class="letters-grid">
+    <div class="envelope" onclick="openLetter(0)">
+      <span class="envelope-icon">💌</span>
+      <p class="envelope-label">Open when I'm being distant</p>
+      <p class="envelope-tag">tap to open</p>
+    </div>
+    <div class="envelope" onclick="openLetter(1)">
+      <span class="envelope-icon">🌸</span>
+      <p class="envelope-label">Open when you miss me</p>
+      <p class="envelope-tag">tap to open</p>
+    </div>
+    <div class="envelope" onclick="openLetter(2)">
+      <span class="envelope-icon">✨</span>
+      <p class="envelope-label">Open when you need to hear something true</p>
+      <p class="envelope-tag">tap to open</p>
+    </div>
+    <div class="envelope" onclick="openLetter(3)">
+      <span class="envelope-icon">🌧️</span>
+      <p class="envelope-label">Open when you're sad</p>
+      <p class="envelope-tag">tap to open</p>
+    </div>
+    <div class="envelope" onclick="openLetter(4)">
+      <span class="envelope-icon">🌙</span>
+      <p class="envelope-label">Open when it's late and you can't sleep</p>
+      <p class="envelope-tag">tap to open</p>
+    </div>
+  </div>
+</section>
+
+<!-- letter modal -->
+<div class="letter-modal" id="letter-modal">
+  <div class="letter-paper">
+    <button class="letter-close" onclick="closeLetter()">×</button>
+    <h3 class="letter-title" id="letter-title"></h3>
+    <div class="letter-body" id="letter-body"></div>
+    <p class="letter-sign">– Your Om ♡</p>
+  </div>
+</div>
+
+<!-- ░░░ REASONS ░░░ -->
+<section id="reasons">
+  <h2 class="reasons-title">Reasons I Love You</h2>
+  <p class="reasons-subtitle">in no particular order, because every reason is the biggest one. I wrote only a few cuz writing infinite was so hard na.</p>
+
+  <div class="reason-card"><span class="reason-number">01</span><p class="reason-text">The way you laugh on our calls.. bebuuuu it's the cutest thing in the world and I'd do anything to see it every day. I love you smile baby.</p></div>
+  <div class="reason-card"><span class="reason-number">02</span><p class="reason-text">How sweet you are even when I don't deserve it. You have this softness about you that makes everything feel safe.</p></div>
+  <div class="reason-card"><span class="reason-number">03</span><p class="reason-text">The way you trusted me enough to fall asleep on call. That kind of vulnerability makes me want to protect you forever.</p></div>
+  <div class="reason-card"><span class="reason-number">04</span><p class="reason-text">You said "I love you" first. On New Year's Day. You were braver than me and I'll never forget that.</p></div>
+  <div class="reason-card"><span class="reason-number">05</span><p class="reason-text">.</p></div>
+  <div class="reason-card"><span class="reason-number">06</span><p class="reason-text">How you make even a regular call feel like the best part of my day. Just you are enough.</p></div>
+  <div class="reason-card"><span class="reason-number">07</span><p class="reason-text">You chose me. Out of everyone, you chose me. And I'll spend every day trying to be worth that choice.</p></div>
+  <div class="reason-card"><span class="reason-number">08</span><p class="reason-text">Because 141 days in and I still get excited every time I see your name on my screen.</p></div>
+  <div class="reason-card"><span class="reason-number">09</span><p class="reason-text">You never gave up on us even when I got busy and couldn't give you the time you deserved. Thank you for staying.</p></div>
+  <div class="reason-card"><span class="reason-number">10</span><p class="reason-text">Because loving you is the easiest thing I've ever done.</p></div>
+</section>
+
+<!-- ░░░ ENDING ░░░ -->
+<section id="ending">
+  <p class="ending-para">
+    Joy, I know I haven't been the best at giving you time lately. I know sometimes the calls got shorter and the gaps got longer. But I need you to know not a single day passes where you're not on my mind. You are my favorite person in this entire world.
+  </p>
+  <p class="ending-para">
+    I couldn't give you a gift I could wrap. So I made you this instead, every memory, every feeling, every reason... Because you deserve to see yourself the way I see you.
+  </p>
+  <p class="ending-para">
+    Happy birthday, my Joy. my bebu, my baby, my bae. my bubuubububububu.. Mahal na mahal kita. Here's to a hundred more birthdays I get to celebrate with you. And please stop saying sorry. You have nothing to be sorry for. Ever. ♡
+  </p>
+
+  <!-- ✏️ EDIT YOUR PARAGRAPH ABOVE — replace the text with your own words -->
+
+  <p class="ending-sign">Forever yours, Om</p>
+  <p class="ending-tagalog">MAHAL KITA ♡</p>
+  <div class="ending-hearts">🤍🩷🤍</div>
+</section>
+
+
+<script>
+// ═══ LETTER DATA — EDIT THESE ═══
+const letters = [
+  {
+    title: "When I'm being distant...",
+    body: `Joy, if you're reading this, it means I've been a little far lately. And I'm sorry.<br><br>I want you to know.. it's never because of you. It's never because I love you less. Sometimes I get caught up in things and I forget to show you what you mean to me. But you're always there, in the back of my mind, in every pause between the busy moments.<br><br>Please don't ever think my silence means I've stopped caring. It just means I'm being stupid. And I'll always come back to you. Always.<br><br>Wait for me, please bebu.. I'm always yours.`
+  },
+  {
+    title: "When you miss me...",
+    body: `Hey, mahal ko. So you miss me?<br><br>Close your eyes for a second. Remember that night you fell asleep on call? How quiet and safe everything felt? I was guarding you.. lol.. Maybe not on a call right now, but in every way that matters.. I'm right there with you.<br><br>♡`
+  },
+  {
+    title: "Something true...",
+    body: `Here's the truth, Jo:<br><br>You are loved. Not the kind of love that fades when things get hard or when distance stretches too long. The real kind.... The kind that showed up three days after meeting you and never left.<br><br>You are enough. More than enough. You're the girl who said "I love you" first on New Year's Day and changed my whole year. My whole life.<br><br>Don't ever doubt what you are to me. You are everything.`
+  },
+  {
+    title: "When you're sad...",
+    body: `Joy, I wish I could be there right now. I wish I could hold you and tell you everything's going to be okay in person, not through a screen.<br><br>But since I can't... please hear me: whatever is making you sad right now, it's temporary. You've been through hard things before and you came out softer, not harder. That's your superpower.<br><br>Cry if you need to. But then remember.. you have someone who thinks you're the most incredible person alive. And he's not going anywhere.<br><br>Smile for me baby please... That cute one? your smile is always cutest bebu. ♡`
+  },
+  {
+    title: "Late nights...",
+    body: `Can't sleep, Joy? ah you do so fast..<br><br> and its okay bebu.. I love you alwaysssss.... ♡`
+  }
+];
+
+// ═══ PARTICLES ═══
+function createParticles() {
+  const container = document.getElementById('particles');
+  const symbols = ['♡', '✿', '❀', '♡', '·', '♡'];
+  const colors = ['#f4c2c2', '#e8a0a0', '#d4a0a0', '#e8daf0', '#c8d8c0'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (Math.random() * 14 + 8) + 'px';
+    p.style.color = colors[Math.floor(Math.random() * colors.length)];
+    p.style.animationDuration = (Math.random() * 12 + 10) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    container.appendChild(p);
+  }
+}
+createParticles();
+
+// ═══ CONFETTI ═══
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const pieces = [];
+  const colors = ['#f4c2c2','#e8a0a0','#f08080','#e8daf0','#c8d8c0','#d4a574','#fce4ec'];
+
+  for (let i = 0; i < 120; i++) {
+    pieces.push({
+      x: canvas.width * Math.random(),
+      y: -20 - Math.random() * canvas.height,
+      w: Math.random() * 10 + 4,
+      h: Math.random() * 6 + 3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vy: Math.random() * 3 + 2,
+      vx: (Math.random() - 0.5) * 2,
+      rot: Math.random() * 360,
+      rv: (Math.random() - 0.5) * 8,
+      opacity: 1
+    });
+  }
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    pieces.forEach(p => {
+      if (p.opacity <= 0) return;
+      alive = true;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.rv;
+      if (p.y > canvas.height * 0.8) p.opacity -= 0.01;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.globalAlpha = Math.max(0, p.opacity);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if (alive && frame < 300) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+
+// ═══ ENTER SITE ═══
+function enterSite() {
+  document.getElementById('landing').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+  setTimeout(() => {
+    document.getElementById('celeb-content').classList.add('show');
+    launchConfetti();
+  }, 400);
+  setTimeout(() => {
+    document.getElementById('landing').style.display = 'none';
+  }, 1000);
+}
+
+// prevent scroll before entering
+document.body.style.overflow = 'hidden';
+
+// ═══ SCROLL ANIMATIONS ═══
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.tl-item, .reason-card, .ending-para, .ending-sign, .ending-tagalog, .ending-hearts').forEach(el => {
+  observer.observe(el);
+});
+
+// ═══ LETTERS ═══
+function openLetter(i) {
+  const l = letters[i];
+  document.getElementById('letter-title').textContent = l.title;
+  document.getElementById('letter-body').innerHTML = l.body;
+  document.getElementById('letter-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLetter() {
+  document.getElementById('letter-modal').classList.remove('open');
+  document.body.style.overflow = 'auto';
+}
+document.getElementById('letter-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeLetter();
+});
+
+// ═══ SCROLL TO SECTION ═══
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
